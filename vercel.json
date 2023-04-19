@@ -1,0 +1,3 @@
+{
+  "rewrites": [{ "source": "/:country_code/*", "destination": "/country_code" }]
+}
