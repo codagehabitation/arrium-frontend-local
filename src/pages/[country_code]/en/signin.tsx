@@ -5,10 +5,11 @@ import SignInPage from "@/components/SignInPage"
 import { IPageProps } from "@/lib/interfaces/common"
 
 interface ISigninProps {
-  params: IPageProps
+  params: IPageProps,
+  path? : string
 }
 
-const signin: React.FC<ISigninProps> = ({ params }) => {
+const Signin: React.FC<ISigninProps> = ({ params }) => {
   return (
     <React.Fragment>
       <Seo title="Sign In | Arrium" />
@@ -17,4 +18,4 @@ const signin: React.FC<ISigninProps> = ({ params }) => {
   )
 }
 
-export default signin
+export default Signin
