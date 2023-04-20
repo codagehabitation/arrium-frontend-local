@@ -51,10 +51,10 @@ const wrapRootElement: GatsbyBrowser["wrapRootElement"] = ({ element }) => {
   )
 }
 
-export { wrapRootElement }
-
-export function replaceHydrateFunction() {
-  return (element, container, callback) => {
-    ReactDOM.render(element, container, callback)
+const onRouteUpdate = () => {
+  const jssStyles = document.querySelector("#jss-server-side");
+  if (jssStyles && jssStyles.parentNode) {
+    jssStyles.parentNode.removeChild(jssStyles);
   }
-}
+};
+export { wrapRootElement, onRouteUpdate }
