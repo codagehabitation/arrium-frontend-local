@@ -52,3 +52,9 @@ const wrapRootElement: GatsbyBrowser["wrapRootElement"] = ({ element }) => {
 }
 
 export { wrapRootElement }
+
+export function replaceHydrateFunction() {
+  return (element, container, callback) => {
+    ReactDOM.render(element, container, callback)
+  }
+}
