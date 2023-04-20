@@ -59,7 +59,7 @@ export const onRenderBody: GatsbySSR["onRenderBody"] = ({
   setPostBodyComponents(PostBodyComponents)
 }
 
-export const wrapRootElement: GatsbySSR["wrapRootElement"] = ({ element }) => {
+export const wrapPageElement: GatsbySSR["wrapPageElement"] = ({ element }) => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {

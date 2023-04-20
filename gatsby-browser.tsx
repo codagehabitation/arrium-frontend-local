@@ -51,10 +51,4 @@ const wrapRootElement: GatsbyBrowser["wrapRootElement"] = ({ element }) => {
   )
 }
 
-const onRouteUpdate = () => {
-  const jssStyles = document.querySelector("#jss-server-side");
-  if (jssStyles && jssStyles.parentNode) {
-    jssStyles.parentNode.removeChild(jssStyles);
-  }
-};
-export { wrapRootElement, onRouteUpdate }
+export { wrapRootElement }
