@@ -19,5 +19,5 @@
       "@/*": ["*"]
     }
   },
-  "include": ["./src/**/*", "gatsby-ssr.tsx", "gatsby-browser.tsx"]
+  "include": ["./src/**/*", "gatsby-ssr.js", "gatsby-browser.tsx"]
 }

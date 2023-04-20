@@ -95,3 +95,7 @@ export const wrapRootElement: GatsbySSR["wrapRootElement"] = ({ element }) => {
     </QueryClientProvider>
   )
 }
+
+export const replaceRenderer = ({ replaceBodyHTMLString }) => {
+  replaceBodyHTMLString('<div id="___gatsby"></div>');
+};
