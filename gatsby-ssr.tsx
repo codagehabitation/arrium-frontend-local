@@ -59,7 +59,7 @@ export const onRenderBody: GatsbySSR["onRenderBody"] = ({
   setPostBodyComponents(PostBodyComponents)
 }
 
-export const wrapRootElement: GatsbySSR["wrapRootElement"] = ({ element }) => {
+export const wrapPageElement = ({ element }) => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -74,7 +74,7 @@ export const wrapRootElement: GatsbySSR["wrapRootElement"] = ({ element }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <MuiThemeProvider theme={muiTheme}>
+      <ThemeProvider theme={muiTheme}>
         <ThemeProvider theme={theme}>
           <SnackbarProvider
             dense
@@ -83,16 +83,11 @@ export const wrapRootElement: GatsbySSR["wrapRootElement"] = ({ element }) => {
             autoHideDuration={4000}
             anchorOrigin={{ horizontal: "right", vertical: "top" }}
           >
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <React.Fragment>
-                <CssBaseline />
-                {element}
-              </React.Fragment>
-            </LocalizationProvider>
+            <CssBaseline />
+            <Layout>{element}</Layout>
           </SnackbarProvider>
         </ThemeProvider>
-      </MuiThemeProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   )
 }
-
