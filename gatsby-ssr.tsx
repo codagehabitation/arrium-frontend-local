@@ -1,5 +1,5 @@
 // Import React so that you can use JSX in HeadComponents
-import React from "react"
+import React, { ReactElement } from "react"
 import CssBaseline from "@mui/material/CssBaseline"
 import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
@@ -11,7 +11,7 @@ import theme from "./src/theme"
 import muiTheme from "./src/muiTheme"
 import "./src/global.css"
 import { GatsbySSR } from "gatsby"
-
+import { renderToString } from "react-dom/server"
 const HtmlAttributes = {
   lang: "en",
 }
@@ -46,7 +46,10 @@ const PostBodyComponents = [
     }}
   ></script>,
 ]
-
+const MyWrapper = ({ element }) => {
+  const myNewBody = "<h1>This is my new body</h1>"
+  return <div dangerouslySetInnerHTML={{ __html: myNewBody }} />
+}
 export const onRenderBody: GatsbySSR["onRenderBody"] = ({
   setHtmlAttributes,
   setHeadComponents,
@@ -59,7 +62,8 @@ export const onRenderBody: GatsbySSR["onRenderBody"] = ({
   setPostBodyComponents(PostBodyComponents)
 }
 
-export const wrapRootElement: GatsbySSR["wrapRootElement"] = ({ element }) => {
+export const wrapRootElement: GatsbySSR["wrapRootElement"] = ({ element, pathname }) => {
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -71,7 +75,9 @@ export const wrapRootElement: GatsbySSR["wrapRootElement"] = ({ element }) => {
       },
     },
   })
-
+  if(pathname.includes(`/[country_code]/`)){
+    return <MyWrapper element={element} />
+  }
   return (
     <QueryClientProvider client={queryClient}>
       <MuiThemeProvider theme={muiTheme}>
@@ -95,4 +101,3 @@ export const wrapRootElement: GatsbySSR["wrapRootElement"] = ({ element }) => {
     </QueryClientProvider>
   )
 }
-
