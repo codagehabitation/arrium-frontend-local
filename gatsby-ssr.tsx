@@ -98,5 +98,5 @@ export const wrapRootElement: GatsbySSR["wrapRootElement"] = ({ element }) => {
 
 export const replaceRenderer : GatsbySSR["replaceRenderer"]=({ bodyComponent, pathname, replaceBodyHTMLString})=>{
   const bodyHTML = renderToString(bodyComponent as ReactElement)
-  replaceBodyHTMLString(!pathname.includes(`/[country_code]/`)?bodyHTML : "<div> SSG is disabled for this page.</div>")
+  replaceBodyHTMLString("<div> SSG is disabled for this page.</div>")
 }
