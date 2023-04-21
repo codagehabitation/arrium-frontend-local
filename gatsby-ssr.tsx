@@ -46,10 +46,7 @@ const PostBodyComponents = [
     }}
   ></script>,
 ]
-const MyWrapper = ({ element }) => {
-  const myNewBody = "<h1>This is my new body</h1>"
-  return <div dangerouslySetInnerHTML={{ __html: myNewBody }} />
-}
+
 export const onRenderBody: GatsbySSR["onRenderBody"] = ({
   setHtmlAttributes,
   setHeadComponents,
@@ -62,8 +59,7 @@ export const onRenderBody: GatsbySSR["onRenderBody"] = ({
   setPostBodyComponents(PostBodyComponents)
 }
 
-export const wrapRootElement: GatsbySSR["wrapRootElement"] = ({ element, pathname }) => {
-
+export const wrapRootElement: GatsbySSR["wrapRootElement"] = ({ element }) => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -75,9 +71,7 @@ export const wrapRootElement: GatsbySSR["wrapRootElement"] = ({ element, pathnam
       },
     },
   })
-  if(pathname.includes(`/[country_code]/`)){
-    return <MyWrapper element={element} />
-  }
+
   return (
     <QueryClientProvider client={queryClient}>
       <MuiThemeProvider theme={muiTheme}>
@@ -100,4 +94,9 @@ export const wrapRootElement: GatsbySSR["wrapRootElement"] = ({ element, pathnam
       </MuiThemeProvider>
     </QueryClientProvider>
   )
+}
+
+export const replaceRenderer : GatsbySSR["replaceRenderer"]=({ bodyComponent, pathname, replaceBodyHTMLString})=>{
+  const bodyHTML = renderToString(bodyComponent as ReactElement)
+  replaceBodyHTMLString(!pathname.includes(`/[country_code]/`)?bodyHTML : "<div> SSG is disabled for this page.</div>")
 }
